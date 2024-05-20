@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Folha de Pagamento</h1>
+        
+        <form id="payrollForm">
+            <label for="funcionario">Funcionário:</label>
+            <input type="text" id="funcionario" name="funcionario" placeholder="Nome do funcionário">
+
+            <label for="salario">Salário (R$):</label>
+            <input type="number" id="salario" name="salario" placeholder="Salário do funcionário">
+
+            <label for="desconto">Desconto (R$):</label>
+            <input type="number" id="desconto" name="desconto" placeholder="Desconto do funcionário">
+
+            <input type="submit" value="Adicionar Funcionário">
+        </form>
+
+        <h2>Dados Cadastrados</h2>
+        <table id="dataTable">
+            <tr>
+                <th>Funcionário</th>
+                <th>Salário (R$)</th>
+                <th>Desconto (R$)</th>
+                <th>Salário Líquido (R$)</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById("payrollForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var funcionario = document.getElementById("funcionario").value;
+            var salario = parseFloat(document.getElementById("salario").value);
+            var desconto = parseFloat(document.getElementById("desconto").value);
+            var salarioLiquido = salario - desconto;
+
+            addData(funcionario, salario, desconto, salarioLiquido);
+
+            document.getElementById("funcionario").value = "";
+            document.getElementById("salario").value = "";
+            document.getElementById("desconto").value = "";
+        });
+
+        function addData(funcionario, salario, desconto, salarioLiquido) {
+            var table = document.getElementById("dataTable");
+            var row = table.insertRow(-1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            cell1.textContent = funcionario;
+            cell2.textContent = salario.toFixed(2);
+            cell3.textContent = desconto.toFixed(2);
+            cell4.textContent = salarioLiquido.toFixed(2);
+        }
+    </script>
+</body>
+</html>
